@@ -428,7 +428,6 @@
         </button>
       </div>
 
-
       <a
         href="https://www.google.com/maps/place/Zacky%E2%80%99s+Event+Place/@11.2076228,124.9986306,554m/data=!3m1!1e3!4m6!3m5!1s0x330877003b517203:0x206d7aa8efce2c64!8m2!3d11.2081905!4d124.9977452!16s%2Fg%2F11wfx0n_20?entry=ttu&g_ep=EgoyMDI2MDMyNC4wIKXMDSoASAFQAw%3D%3D"
         target="_blank"
@@ -1112,13 +1111,13 @@
           centeredSlides: true,
           slidesPerView: "auto",
           loop: true,
-          speed: 1800, // smooth 1.8s slide transition
+          speed: 1200, // slightly faster feels snappier on mobile
           coverflowEffect: {
             rotate: 0,
-            stretch: 120, // slightly more spread for depth
-            depth: 300, // deeper 3D perspective
+            stretch: 120,
+            depth: 200, // reduced from 300 — less GPU work
             modifier: 1,
-            slideShadows: true,
+            slideShadows: false, // turn off slide shadows — big perf win on mobile
           },
           pagination: {
             el: ".swiper-pagination",
@@ -1129,9 +1128,9 @@
             prevEl: ".m-prev",
           },
           autoplay: {
-            delay: 2000, // 2 seconds between slides
-            disableOnInteraction: false, // keeps going after manual swipe
-            pauseOnMouseEnter: true, // pauses on hover for elegance
+            delay: 2500, // slightly longer delay gives transitions time to complete
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true,
           },
         });
 
