@@ -18,9 +18,18 @@
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0) !important;
 }
 
-:focus {
+:focus,
+:focus-visible,
+:focus-within {
   outline: none !important;
   box-shadow: none !important;
+}
+
+.music-btn:focus,
+.music-btn:focus-visible,
+.music-btn:active {
+  outline: none !important;
+  box-shadow: 0 0 10px rgba(197, 160, 89, 0.2) !important;
 }
 
 body {
@@ -30,6 +39,7 @@ body {
   overflow-x: hidden;
   padding-top: var(--nav-height);
   position: relative;
+  top: 0 !important;
 }
 
 /* ─── Sparkles ─────────────────────────────────────────────────────────────── */
@@ -197,6 +207,9 @@ body {
   position: relative;
   overflow: hidden;
   box-shadow: 0 0 10px rgba(197, 160, 89, 0.2);
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 #musicIcon {
@@ -223,6 +236,9 @@ body {
   cursor: pointer;
   padding: 5px;
   z-index: 1001;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .hamburger span {
@@ -418,7 +434,7 @@ body {
 .input-field:focus {
   border-color: var(--gold);
   background: white;
-  box-shadow: 0 0 0 4px rgba(197, 160, 89, 0.1);
+  box-shadow: 0 0 0 4px rgba(197, 160, 89, 0.1) !important;
   transform: translateY(-2px);
 }
 
@@ -738,8 +754,7 @@ body {
   height: clamp(400px, 75vh, 650px);
   border-radius: 30px;
   opacity: 0.5;
-  transition:
-    transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+  transition: transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94),
     opacity 1.2s ease,
     box-shadow 1.2s ease;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
@@ -821,6 +836,17 @@ body {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.nav-btn:focus,
+.nav-btn:focus-visible,
+.m-nav-btn:focus,
+.m-nav-btn:focus-visible {
+  outline: none !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
 }
 
 .nav-btn:hover,
@@ -923,10 +949,6 @@ body {
 #google_translate_element,
 .skiptranslate {
   display: none !important;
-}
-
-body {
-  top: 0 !important;
 }
 
 /* ─── Mobile ─────────────────────────────────────────────────────────────────── */
