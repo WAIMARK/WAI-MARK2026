@@ -1,0 +1,1269 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>Wai & Mark | 06.19.26</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Allura&family=Playfair+Display+SC:wght@400;700&family=Quicksand:wght@300;500&family=Montserrat:wght@100;300;400&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <div class="sparkle-container" id="sparkleContainer"></div>
+
+    <audio id="bgMusic" loop>
+      <source src="arawgabe.mp3" type="audio/mpeg" />
+    </audio>
+
+    <nav class="navbar">
+      <div
+        style="
+          font-family: &quot;Playfair Display SC&quot;, serif;
+          font-size: 1.2rem;
+          color: var(--gold);
+          font-weight: bold;
+        "
+      >
+        W&M
+      </div>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home" onclick="closeMenu()">Home</a></li>
+        <li><a href="#calendar" onclick="closeMenu()">Calendar</a></li>
+        <li><a href="#venue" onclick="closeMenu()">Venue</a></li>
+        <li><a href="#attire" onclick="closeMenu()">Attire</a></li>
+        <li><a href="#memories" onclick="closeMenu()">Memories</a></li>
+        <li><a href="#upload" onclick="closeMenu()">Capture</a></li>
+        <li><a href="#sponsors" onclick="closeMenu()">Godparents</a></li>
+      </ul>
+      <div class="nav-right-group">
+        <div class="music-btn" id="musicToggle" onclick="toggleMusic()">
+          <span id="musicIcon">▶</span>
+          <span id="musicText">Play our song</span>
+        </div>
+        <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    </nav>
+
+    <section class="hero" id="home">
+      <div class="hero-overlay"></div>
+      <div class="monogram-glass">
+        <img src="WM.png" alt="WM Monogram" class="monogram-img" />
+      </div>
+    </section>
+
+    <section class="invite-content" id="invite-content">
+      <p style="letter-spacing: 6px; color: var(--gold); margin-bottom: 20px">
+        SAVE THE DATE
+      </p>
+      <h1 class="names-luxury">WAI</h1>
+      <span class="and-cursive">and</span>
+      <h1 class="names-luxury">MARK</h1>
+      <p
+        style="
+          font-family: &quot;Allura&quot;, cursive;
+          font-size: 2.5rem;
+          color: var(--olive-dark);
+          margin-top: 25px;
+        "
+      >
+        are getting married
+      </p>
+
+      <div class="invitation-text">
+        With love in our hearts, we invite you to join us as we step into the
+        next chapter of our lives.
+      </div>
+
+      <div style="margin: 40px auto">
+        <p
+          style="
+            font-size: 1.3rem;
+            letter-spacing: 4px;
+            color: var(--black);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            font-weight: 500;
+          "
+        >
+          Song of Solomon 3:4
+        </p>
+        <span
+          class="and-cursive"
+          style="
+            margin: 0;
+            font-size: clamp(1.8rem, 5vw, 2.8rem);
+            line-height: 1.2;
+            display: block;
+          "
+          >“I have found the one whom my soul loves.”</span
+        >
+      </div>
+      <div class="invitation-text" style="margin-top: 40px">
+        <strong>June 19, 2026 • Zacky's Event Place, Tacloban City</strong>
+      </div>
+      <div class="countdown-container">
+        <div class="countdown-item">
+          <span class="count-number" id="days">00</span
+          ><span class="count-label">Days</span>
+        </div>
+        <div class="countdown-item">
+          <span class="count-number" id="hours">00</span
+          ><span class="count-label">Hours</span>
+        </div>
+        <div class="countdown-item">
+          <span class="count-number" id="minutes">00</span
+          ><span class="count-label">Mins</span>
+        </div>
+        <div class="countdown-item">
+          <span class="count-number" id="seconds">00</span
+          ><span class="count-label">Secs</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="rsvp" class="rsvp-section">
+      <div class="rsvp-card" id="rsvpCard">
+        <div id="formContainer">
+          <div class="rsvp-header">
+            <p
+              style="
+                letter-spacing: 6px;
+                color: var(--gold);
+                font-size: 0.8rem;
+                text-transform: uppercase;
+              "
+            >
+              Kindly Respond
+            </p>
+            <h2>RSVP</h2>
+            <p
+              style="
+                font-size: 0.85rem;
+                color: #a44a4a;
+                font-weight: 600;
+                margin-top: 10px;
+                letter-spacing: 1px;
+                text-transform: uppercase;
+              "
+            >
+              We would love to hear from you at your convenience <br />on or
+              before April 30, 2026
+            </p>
+          </div>
+
+          <form id="rsvpForm">
+            <div class="form-group">
+              <label class="form-label">Full Name</label>
+              <input
+                type="text"
+                name="fullName"
+                class="input-field"
+                placeholder="Your complete name"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Gender</label>
+              <div class="radio-container">
+                <label class="radio-option">
+                  <input type="radio" name="gender" value="Male" required />
+                  <span class="radio-label">Male</span>
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="gender" value="Female" />
+                  <span class="radio-label">Female</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Contact Information</label>
+              <input
+                type="text"
+                name="contact"
+                class="input-field"
+                placeholder="Email or Phone Number"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Will you attend?</label>
+              <div class="radio-container">
+                <label class="radio-option">
+                  <input type="radio" name="attending" value="Yes" required />
+                  <span class="radio-label">Yes, I'll be there</span>
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="attending" value="No" />
+                  <span class="radio-label">Respectfully decline</span>
+                </label>
+              </div>
+            </div>
+            <button type="submit" id="submitBtn" class="submit-btn">
+              Send My Response
+            </button>
+          </form>
+        </div>
+
+        <div id="successState" class="success-container">
+          <h3 class="success-title">RSVP Received</h3>
+          <p class="success-text">Thank you for being part of our story.</p>
+
+          <p
+            style="
+              max-width: 450px;
+              margin: 20px auto;
+              line-height: 1.6;
+              font-size: 0.9rem;
+              color: #6b705c;
+              font-weight: 400;
+              font-style: italic;
+            "
+          >
+            Due to the intimate nature of our venue, we are only able to
+            accommodate guests specifically named on our official guest list. We
+            appreciate your understanding.
+          </p>
+
+          <div
+            style="
+              width: 40px;
+              height: 1px;
+              background: var(--gold);
+              margin: 25px auto;
+            "
+          ></div>
+
+          <p
+            style="
+              font-size: 0.8rem;
+              text-transform: uppercase;
+              letter-spacing: 2px;
+              color: var(--olive-light);
+              margin-bottom: 30px;
+            "
+          >
+            We look forward to seeing you!
+          </p>
+
+          <button
+            type="button"
+            onclick="resetRSVP()"
+            style="
+              background: transparent;
+              border: 1px solid var(--gold);
+              color: var(--gold);
+              padding: 12px 25px;
+              border-radius: 50px;
+              cursor: pointer;
+              font-size: 0.7rem;
+              letter-spacing: 2px;
+              text-transform: uppercase;
+              transition: 0.3s;
+              font-family: &quot;Montserrat&quot;, sans-serif;
+            "
+          >
+            Back
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="calendar-section" id="calendar">
+      <div class="calendar-container">
+        <h2
+          style="
+            text-align: center;
+            color: var(--gold);
+            letter-spacing: 8px;
+            margin-bottom: 40px;
+          "
+        >
+          JUNE 2026
+        </h2>
+        <div class="calendar-grid">
+          <div class="cal-head">SUN</div>
+          <div class="cal-head">MON</div>
+          <div class="cal-head">TUE</div>
+          <div class="cal-head">WED</div>
+          <div class="cal-head">THU</div>
+          <div class="cal-head">FRI</div>
+          <div class="cal-head">SAT</div>
+          <div class="cal-date"></div>
+          <div class="cal-date">1</div>
+          <div class="cal-date">2</div>
+          <div class="cal-date">3</div>
+          <div class="cal-date">4</div>
+          <div class="cal-date">5</div>
+          <div class="cal-date">6</div>
+          <div class="cal-date">7</div>
+          <div class="cal-date">8</div>
+          <div class="cal-date">9</div>
+          <div class="cal-date">10</div>
+          <div class="cal-date">11</div>
+          <div class="cal-date">12</div>
+          <div class="cal-date">13</div>
+          <div class="cal-date">14</div>
+          <div class="cal-date">15</div>
+          <div class="cal-date">16</div>
+          <div class="cal-date">17</div>
+          <div class="cal-date">18</div>
+          <div class="cal-date the-day">19</div>
+          <div class="cal-date">20</div>
+          <div class="cal-date">21</div>
+          <div class="cal-date">22</div>
+          <div class="cal-date">23</div>
+          <div class="cal-date">24</div>
+          <div class="cal-date">25</div>
+          <div class="cal-date">26</div>
+          <div class="cal-date">27</div>
+          <div class="cal-date">28</div>
+          <div class="cal-date">29</div>
+          <div class="cal-date">30</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="venue-section" id="venue">
+      <p style="letter-spacing: 6px; color: var(--gold)">THE VENUE</p>
+      <h2
+        style="
+          font-family: &quot;Playfair Display SC&quot;, serif;
+          font-size: 2rem;
+          margin: 10px 0;
+        "
+      >
+        ZACKY'S EVENT PLACE TACLOBAN
+      </h2>
+      <p style="font-weight: 300; margin-bottom: 30px">
+        Brgy. 96 Calanipawan, Tacloban City, Philippines
+      </p>
+
+      <div
+        class="carousel-container"
+        style="max-width: 1000px; margin: 0 auto 40px; position: relative"
+      >
+        <div class="venue-slides">
+          <div class="venue-slide active">
+            <img
+              src="Zacks1.jpg"
+              alt="Venue 1"
+              style="width: 100%; height: 450px; object-fit: cover"
+            />
+          </div>
+          <div class="venue-slide">
+            <img
+              src="Zacks2.jpg"
+              alt="Venue 2"
+              style="width: 100%; height: 450px; object-fit: cover"
+            />
+          </div>
+          <div class="venue-slide">
+            <img
+              src="Zacks3.jpg"
+              alt="Venue 3"
+              style="width: 100%; height: 450px; object-fit: cover"
+            />
+          </div>
+          <div class="venue-slide">
+            <img
+              src="Zacks4.jpg"
+              alt="Venue 4"
+              style="width: 100%; height: 450px; object-fit: cover"
+            />
+          </div>
+          <div class="venue-slide">
+            <img
+              src="Zacks5.jpg"
+              alt="Venue 5"
+              style="width: 100%; height: 450px; object-fit: cover"
+            />
+          </div>
+        </div>
+        <button
+          class="nav-btn"
+          style="
+            left: 15px;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+          "
+          onclick="changeVenueSlide(-1)"
+        >
+          ❮
+        </button>
+        <button
+          class="nav-btn"
+          style="
+            right: 15px;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+          "
+          onclick="changeVenueSlide(1)"
+        >
+          ❯
+        </button>
+      </div>
+
+
+      <a
+        href="https://www.google.com/maps/place/Zacky%E2%80%99s+Event+Place/@11.2076228,124.9986306,554m/data=!3m1!1e3!4m6!3m5!1s0x330877003b517203:0x206d7aa8efce2c64!8m2!3d11.2081905!4d124.9977452!16s%2Fg%2F11wfx0n_20?entry=ttu&g_ep=EgoyMDI2MDMyNC4wIKXMDSoASAFQAw%3D%3D"
+        target="_blank"
+        class="btn-map"
+        >Show on Map</a
+      >
+    </section>
+
+    <section
+      id="attire"
+      style="
+        padding: 80px 20px;
+        background-color: #f4f4f1;
+        text-align: center;
+        position: relative;
+        z-index: 1;
+      "
+    >
+      <div
+        style="
+          max-width: 800px;
+          margin: 0 auto;
+          background: white;
+          padding: 50px 30px;
+          border-radius: 20px;
+          box-shadow: 0 10px 40px rgba(0, 0, 0, 0.03);
+          border: 1px solid rgba(197, 160, 89, 0.2);
+        "
+      >
+        <p
+          style="
+            letter-spacing: 6px;
+            color: var(--gold);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+          "
+        >
+          Dress Code
+        </p>
+        <h2
+          style="
+            font-family: &quot;Playfair Display SC&quot;, serif;
+            font-size: 2.2rem;
+            color: var(--olive-dark);
+            margin-bottom: 20px;
+          "
+        >
+          CASUAL SEMI-FORMAL
+        </h2>
+
+        <p
+          style="
+            max-width: 600px;
+            margin: 0 auto 10px;
+            line-height: 1.8;
+            font-weight: 400;
+            font-size: 1rem;
+            color: #a44a4a;
+            letter-spacing: 0.5px;
+          "
+        >
+          <strong>IMPORTANT NOTICE: STRICT COLOR CODE ENFORCEMENT</strong>
+        </p>
+
+        <p
+          style="
+            max-width: 600px;
+            margin: 0 auto 0;
+            line-height: 1.8;
+            font-weight: 300;
+            font-size: 0.95rem;
+          "
+        >
+          To maintain the harmony of our celebration, we kindly request that
+          your attire <strong>compliments the colors</strong> of our wedding
+          palette. Please join us in shades of
+          <strong>Olive, Tulle, and Earthy Tones</strong>.
+        </p>
+
+        <div
+          style="
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 15px;
+            margin-bottom: 30px;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            padding: 5px;
+          "
+        >
+          <div
+            style="
+              width: 35px;
+              height: 35px;
+              flex-shrink: 0;
+              border-radius: 50%;
+              background-color: #3f4238;
+              border: 2px solid #fff;
+              box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            "
+          ></div>
+          <div
+            style="
+              width: 35px;
+              height: 35px;
+              flex-shrink: 0;
+              border-radius: 50%;
+              background-color: #6b705c;
+              border: 2px solid #fff;
+              box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            "
+          ></div>
+          <div
+            style="
+              width: 35px;
+              height: 35px;
+              flex-shrink: 0;
+              border-radius: 50%;
+              background-color: #a5a58d;
+              border: 2px solid #fff;
+              box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            "
+          ></div>
+          <div
+            style="
+              width: 35px;
+              height: 35px;
+              flex-shrink: 0;
+              border-radius: 50%;
+              background-color: #b7b7a4;
+              border: 2px solid #fff;
+              box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            "
+          ></div>
+          <div
+            style="
+              width: 35px;
+              height: 35px;
+              flex-shrink: 0;
+              border-radius: 50%;
+              background-color: #ddbea9;
+              border: 2px solid #fff;
+              box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            "
+          ></div>
+        </div>
+
+        <div
+          style="
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: nowrap;
+            margin-top: 20px;
+            width: 100%;
+          "
+        >
+          <div style="flex: 0 0 48%; max-width: 48%; text-align: center">
+            <img
+              src="1.png"
+              alt="Guest Attire Reference"
+              style="
+                width: 100%;
+                height: auto;
+                border-radius: 10px;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+              "
+            />
+            <p
+              style="
+                font-size: 0.65rem;
+                letter-spacing: 1px;
+                color: var(--olive);
+                margin-top: 10px;
+                text-transform: uppercase;
+                font-weight: 600;
+              "
+            >
+              Guests
+            </p>
+          </div>
+
+          <div style="flex: 0 0 48%; max-width: 48%; text-align: center">
+            <img
+              src="2.png"
+              alt="Godparent Attire Reference"
+              style="
+                width: 100%;
+                height: auto;
+                border-radius: 10px;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+              "
+            />
+            <p
+              style="
+                font-size: 0.65rem;
+                letter-spacing: 1px;
+                color: var(--gold);
+                margin-top: 10px;
+                text-transform: uppercase;
+                font-weight: 600;
+              "
+            >
+              Godparents
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section
+      class="carousel-section"
+      id="memories"
+      style="text-align: center; padding: 100px 0; background: #222"
+    >
+      <p
+        style="
+          letter-spacing: 8px;
+          color: var(--gold);
+          text-transform: uppercase;
+          font-size: 0.8rem;
+          margin-bottom: 10px;
+        "
+      >
+        Our Gallery
+      </p>
+      <h2
+        style="
+          font-family: &quot;Playfair Display SC&quot;, serif;
+          font-size: 2.5rem;
+          color: #fff;
+          margin-bottom: 30px;
+        "
+      >
+        FAVORITE MOMENTS
+      </h2>
+
+      <div class="modern-carousel-wrapper">
+        <div class="swiper mySwiper">
+          <div class="swiper-wrapper" id="memoriesContainer"></div>
+
+          <div class="m-nav-btn m-prev">
+            <span>❮</span>
+          </div>
+          <div class="m-nav-btn m-next">
+            <span>❯</span>
+          </div>
+        </div>
+      </div>
+
+      <p
+        style="
+          font-family: &quot;Allura&quot;, cursive;
+          font-size: 2.2rem;
+          color: var(--gold);
+          margin-top: 20px;
+        "
+      >
+        Every picture tells our story...
+      </p>
+    </section>
+
+    <section
+      id="upload"
+      style="padding: 100px 20px; background: #fff; text-align: center"
+    >
+      <div style="max-width: 800px; margin: 0 auto">
+        <p
+          style="
+            letter-spacing: 6px;
+            color: var(--gold);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+          "
+        >
+          Help us capture the magic
+        </p>
+        <h2
+          style="
+            font-family: &quot;Playfair Display SC&quot;, serif;
+            font-size: 2.2rem;
+            color: var(--olive-dark);
+            margin-bottom: 25px;
+          "
+        >
+          SHARE YOUR PHOTOS
+        </h2>
+        <p
+          style="
+            font-weight: 300;
+            line-height: 1.8;
+            margin-bottom: 40px;
+            color: #666;
+          "
+        >
+          Since we won't have a professional photographer, we are relying on
+          your beautiful eyes and lenses! Please scan the QR code or use the
+          links below to share the moments you capture.
+        </p>
+        <div
+          style="
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            justify-content: center;
+          "
+        >
+          <div
+            style="
+              padding: 30px;
+              border: 1px solid #eee;
+              border-radius: 20px;
+              background: #fdfdfb;
+            "
+          >
+            <img
+              src="qr1.png"
+              alt="QR Code 1"
+              style="
+                width: 250px;
+                height: 250px;
+                margin-bottom: 20px;
+                border: 1px solid #ddd;
+                padding: 5px;
+                object-fit: contain;
+              "
+            />
+            <h3
+              style="
+                font-family: &quot;Playfair Display SC&quot;, serif;
+                margin-bottom: 15px;
+              "
+            >
+              UPLOAD LINK 1
+            </h3>
+            <a
+              href="https://drive.google.com/drive/folders/10CKrsaS4JwCGF6KWM4dcNsWQqWAvaT-4?usp=sharing"
+              target="_blank"
+              style="
+                display: inline-block;
+                padding: 15px 30px;
+                background: var(--olive);
+                color: white;
+                text-decoration: none;
+                border-radius: 50px;
+                font-size: 0.75rem;
+                letter-spacing: 2px;
+                text-transform: uppercase;
+                transition: 0.3s;
+              "
+              >Share Photos</a
+            >
+          </div>
+          <div
+            style="
+              padding: 30px;
+              border: 1px solid #eee;
+              border-radius: 20px;
+              background: #fdfdfb;
+            "
+          >
+            <img
+              src="qr2.png"
+              alt="QR Code 2"
+              style="
+                width: 250px;
+                height: 250px;
+                margin-bottom: 20px;
+                border: 1px solid #ddd;
+                padding: 5px;
+                object-fit: contain;
+              "
+            />
+            <h3
+              style="
+                font-family: &quot;Playfair Display SC&quot;, serif;
+                margin-bottom: 15px;
+              "
+            >
+              UPLOAD LINK 2
+            </h3>
+            <a
+              href="https://drive.google.com/drive/folders/1x0mvVCT21mpoMGBgG8ruwhUEgxQfSa94"
+              target="_blank"
+              style="
+                display: inline-block;
+                padding: 15px 30px;
+                background: var(--olive);
+                color: white;
+                text-decoration: none;
+                border-radius: 50px;
+                font-size: 0.75rem;
+                letter-spacing: 2px;
+                text-transform: uppercase;
+                transition: 0.3s;
+              "
+              >Share Photos</a
+            >
+          </div>
+        </div>
+        <p
+          style="
+            margin-top: 40px;
+            font-family: &quot;Allura&quot;, cursive;
+            font-size: 2rem;
+            color: var(--gold);
+          "
+        >
+          Thank you for being our eyes!
+        </p>
+      </div>
+    </section>
+
+    <section
+      class="sponsors-section"
+      id="sponsors"
+      style="
+        text-align: center;
+        padding: 100px 20px;
+        background: linear-gradient(to bottom, #fdfdfb, #f4f4f1);
+      "
+    >
+      <p
+        style="
+          letter-spacing: 8px;
+          color: var(--olive-light);
+          margin-bottom: 10px;
+          font-size: 0.8rem;
+          text-transform: uppercase;
+        "
+      >
+        Guiding Our Journey
+      </p>
+      <h2
+        style="
+          font-family: &quot;Playfair Display SC&quot;, serif;
+          font-size: 2.2rem;
+          margin-bottom: 0;
+          color: var(--olive-dark);
+        "
+      >
+        PRINCIPAL SPONSORS
+      </h2>
+      <div class="godparents-card">
+        <h3 class="sponsor-title-cursive">Godparents</h3>
+        <ul class="godparents-list">
+          <li class="godparent-item">Dr. June Clyde Descallar</li>
+          <li class="godparent-item">Mrs. Delia Pagente</li>
+          <li class="godparent-item">Engr. Chee Ann Candido</li>
+          <li class="godparent-item">Hon. Leo Jasper Candido</li>
+          <li class="godparent-item">Mrs. Mitzi Gaile Descallar</li>
+        </ul>
+      </div>
+    </section>
+
+    <footer
+      style="
+        background: var(--olive-dark);
+        color: white;
+        padding: 60px 20px 30px;
+        text-align: center;
+      "
+    >
+      <div
+        style="
+          font-family: &quot;Playfair Display SC&quot;, serif;
+          letter-spacing: 4px;
+          font-size: 1.2rem;
+          margin-bottom: 10px;
+        "
+      >
+        WAI <span style="color: var(--gold)">•</span> MARK
+      </div>
+      <div
+        style="
+          font-family: &quot;Quicksand&quot;, sans-serif;
+          font-weight: 300;
+          letter-spacing: 2px;
+          font-size: 0.8rem;
+          opacity: 0.8;
+          margin-bottom: 40px;
+        "
+      >
+        06.19.2026 — TACLOBAN CITY
+      </div>
+      <div
+        style="
+          width: 50px;
+          height: 1px;
+          background: var(--gold);
+          margin: 0 auto 30px;
+          opacity: 0.5;
+        "
+      ></div>
+    </footer>
+
+    <div
+      id="customAlert"
+      style="
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.4);
+        z-index: 9999;
+        backdrop-filter: blur(4px);
+        align-items: center;
+        justify-content: center;
+      "
+    >
+      <div
+        style="
+          background: white;
+          padding: 40px 30px;
+          border-radius: 25px;
+          max-width: 400px;
+          width: 90%;
+          text-align: center;
+          box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+          border: 1px solid var(--gold);
+        "
+      >
+        <span
+          style="
+            font-size: 3rem;
+            color: var(--gold);
+            display: block;
+            margin-bottom: 15px;
+          "
+          >♡</span
+        >
+        <h3
+          style="
+            font-family: &quot;Playfair Display SC&quot;, serif;
+            color: var(--olive-dark);
+            margin-bottom: 15px;
+          "
+        >
+          Wait a moment...
+        </h3>
+        <p
+          id="alertMessage"
+          style="
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            font-size: 0.95rem;
+          "
+        >
+          It looks like this name is already on our guest list!
+        </p>
+        <button
+          onclick="closeAlert()"
+          style="
+            background: var(--olive-dark);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            cursor: pointer;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+          "
+        >
+          Understood
+        </button>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <script>
+      function createSparkles() {
+        const container = document.getElementById("sparkleContainer");
+        const sparkleCount = 40;
+        for (let i = 0; i < sparkleCount; i++) {
+          const sparkle = document.createElement("div");
+          sparkle.className = "sparkle";
+          const size = Math.random() * 3 + 1 + "px";
+          sparkle.style.width = size;
+          sparkle.style.height = size;
+          sparkle.style.left = Math.random() * 100 + "%";
+          sparkle.style.top = Math.random() * 100 + "%";
+          sparkle.style.animationDelay = Math.random() * 5 + "s";
+          container.appendChild(sparkle);
+        }
+      }
+      createSparkles();
+
+      function toggleMenu() {
+        document.getElementById("navLinks").classList.toggle("active");
+        document.getElementById("hamburger").classList.toggle("active");
+      }
+      function closeMenu() {
+        document.getElementById("navLinks").classList.remove("active");
+        document.getElementById("hamburger").classList.remove("active");
+      }
+
+      const weddingDate = new Date("June 19, 2026 00:00:00").getTime();
+      setInterval(function () {
+        const now = new Date().getTime();
+        const distance = weddingDate - now;
+        document.getElementById("days").innerHTML = Math.max(
+          0,
+          Math.floor(distance / (1000 * 60 * 60 * 24)),
+        );
+        document.getElementById("hours").innerHTML = Math.max(
+          0,
+          Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+        );
+        document.getElementById("minutes").innerHTML = Math.max(
+          0,
+          Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
+        );
+        document.getElementById("seconds").innerHTML = Math.max(
+          0,
+          Math.floor((distance % (1000 * 60)) / 1000),
+        );
+      }, 1000);
+
+      function toggleMusic() {
+        const audio = document.getElementById("bgMusic");
+        const btn = document.getElementById("musicToggle");
+        const icon = document.getElementById("musicIcon");
+        const text = document.getElementById("musicText");
+        if (audio.paused) {
+          audio.play();
+          btn.classList.add("playing");
+          icon.innerHTML = "⏸";
+          text.innerHTML = "Araw Gabi Playing";
+        } else {
+          audio.pause();
+          btn.classList.remove("playing");
+          icon.innerHTML = "▶";
+          text.innerHTML = "Tap to play song";
+        }
+      }
+
+      const memoriesContainer = document.getElementById("memoriesContainer");
+      const labels = [""];
+
+      function initMemories() {
+        // New priority images shown first
+        const priorityImages = [
+          "01.jpg",
+          "02.jpg",
+          "03.jpg",
+          "04.jpg",
+          "05.jpg",
+          "06.jpg",
+          "07.jpg",
+        ];
+
+        // Existing images
+        const existingImages = [];
+        for (let i = 1; i <= 29; i++) {
+          existingImages.push(`${i}.jpeg`);
+        }
+
+        // Combine: new ones first, then existing
+        const allImages = [...priorityImages, ...existingImages];
+
+        allImages.forEach((src, index) => {
+          const swiperSlide = document.createElement("div");
+          swiperSlide.className = "swiper-slide";
+          swiperSlide.innerHTML = `
+            <img src="${src}" alt="Memory ${index + 1}" loading="lazy">
+            <div class="slide-label"></div>
+        `;
+          memoriesContainer.appendChild(swiperSlide);
+        });
+
+        const swiper = new Swiper(".mySwiper", {
+          effect: "coverflow",
+          grabCursor: true,
+          centeredSlides: true,
+          slidesPerView: "auto",
+          loop: true,
+          speed: 1800, // smooth 1.8s slide transition
+          coverflowEffect: {
+            rotate: 0,
+            stretch: 120, // slightly more spread for depth
+            depth: 300, // deeper 3D perspective
+            modifier: 1,
+            slideShadows: true,
+          },
+          pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+          },
+          navigation: {
+            nextEl: ".m-next",
+            prevEl: ".m-prev",
+          },
+          autoplay: {
+            delay: 2000, // 2 seconds between slides
+            disableOnInteraction: false, // keeps going after manual swipe
+            pauseOnMouseEnter: true, // pauses on hover for elegance
+          },
+        });
+
+        // Only start autoplay when the memories section enters the viewport
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                swiper.autoplay.start();
+              } else {
+                swiper.autoplay.stop();
+              }
+            });
+          },
+          {
+            threshold: 0.3,
+          },
+        );
+
+        const memoriesSection = document.getElementById("memories");
+        if (memoriesSection) observer.observe(memoriesSection);
+      }
+
+      let venueSlideIndex = 0;
+      const venueSlides = document.querySelectorAll(".venue-slide");
+
+      function showVenueSlide(n) {
+        if (venueSlides.length === 0) return;
+        venueSlides.forEach((s) => s.classList.remove("active"));
+        venueSlideIndex = (n + venueSlides.length) % venueSlides.length;
+        venueSlides[venueSlideIndex].classList.add("active");
+      }
+
+      function changeVenueSlide(n) {
+        showVenueSlide(venueSlideIndex + n);
+      }
+
+      setInterval(() => {
+        changeVenueSlide(1);
+      }, 2500);
+
+      const rsvpForm = document.getElementById("rsvpForm");
+      const formContainer = document.getElementById("formContainer");
+      const successState = document.getElementById("successState");
+      const scriptURL =
+        "https://script.google.com/macros/s/AKfycbxoXqJ9M8ZfH7SxRBonA3Luy8jATOACD2bWh15pYRWREiCiN2zqN-p78MsPaI5tfyBhBQ/exec";
+
+      rsvpForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const btn = document.getElementById("submitBtn");
+        const formData = new FormData(rsvpForm);
+        const nameToCheck = formData.get("fullName").trim();
+
+        btn.disabled = true;
+        btn.innerHTML = "Checking name...";
+        btn.style.opacity = "0.7";
+
+        try {
+          const response = await fetch(scriptURL);
+          const data = await response.json();
+
+          const nameExists = data.some(
+            (entry) =>
+              entry.fullName &&
+              entry.fullName.toString().toLowerCase() ===
+                nameToCheck.toLowerCase(),
+          );
+
+          if (nameExists) {
+            document.getElementById("alertMessage").innerHTML =
+              "It looks like <strong>" +
+              nameToCheck +
+              "</strong> is already listed in our RSVP list. <br><br>If you need to update your details, please reach out to us directly!";
+
+            document.getElementById("customAlert").style.display = "flex";
+
+            btn.disabled = false;
+            btn.innerHTML = "Send My Response";
+            btn.style.opacity = "1";
+            return;
+          }
+
+          btn.innerHTML = "Sending...";
+          const submitResponse = await fetch(scriptURL, {
+            method: "POST",
+            body: formData,
+          });
+
+          if (submitResponse.ok) {
+            formContainer.style.opacity = "0";
+            setTimeout(() => {
+              formContainer.style.display = "none";
+              successState.style.display = "block";
+              successState.scrollIntoView({
+                behavior: "smooth",
+                block: "center",
+              });
+            }, 400);
+          }
+        } catch (error) {
+          console.error("Error:", error);
+          alert("An error occurred. Please try again later.");
+          btn.disabled = false;
+          btn.innerHTML = "Send My Response";
+          btn.style.opacity = "1";
+        }
+      });
+
+      function resetRSVP() {
+        document.getElementById("successState").style.display = "none";
+        const formContainer = document.getElementById("formContainer");
+        formContainer.style.display = "block";
+        formContainer.style.opacity = "1";
+
+        const rsvpForm = document.getElementById("rsvpForm");
+        rsvpForm.reset();
+
+        const btn = document.getElementById("submitBtn");
+        btn.disabled = false;
+        btn.innerHTML = "Send My Response";
+        btn.style.opacity = "1";
+
+        formContainer.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+
+      function closeAlert() {
+        document.getElementById("customAlert").style.display = "none";
+      }
+
+      window.onload = () => {
+        initMemories();
+      };
+    </script>
+  </body>
+</html>
