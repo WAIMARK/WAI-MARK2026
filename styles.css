@@ -729,34 +729,34 @@ body {
   position: relative;
 }
 
+/* ─── Swiper Slides — GPU-optimised, no blur ────────────────────────────────── */
+
 .swiper-slide {
   background-position: center;
   background-size: cover;
   width: clamp(300px, 75vw, 600px);
   height: clamp(400px, 75vh, 650px);
   border-radius: 30px;
-  filter: blur(3px) brightness(0.55);
+  opacity: 0.5;
   transition:
-    transform 1.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-    filter 1.8s ease,
-    box-shadow 1.8s ease;
+    transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    opacity 1.2s ease,
+    box-shadow 1.2s ease;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   position: relative;
-  -webkit-transform: translateZ(0);
-  transform: translateZ(0);
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
-  will-change: transform;
+  will-change: transform, opacity;
 }
 
 .swiper-slide-active {
-  filter: blur(0) brightness(1);
+  opacity: 1;
   box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
 }
 
 .swiper-slide-prev,
 .swiper-slide-next {
-  filter: blur(1px) brightness(0.65);
+  opacity: 0.6;
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
 }
 
@@ -766,7 +766,9 @@ body {
   height: 100%;
   object-fit: cover;
   border-radius: 30px;
-  transition: transform 1.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 .swiper-slide-active img {
@@ -914,6 +916,19 @@ body {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
 }
 
+/* ─── Google Translate suppression ──────────────────────────────────────────── */
+
+.goog-te-banner-frame,
+.goog-te-menu-frame,
+#google_translate_element,
+.skiptranslate {
+  display: none !important;
+}
+
+body {
+  top: 0 !important;
+}
+
 /* ─── Mobile ─────────────────────────────────────────────────────────────────── */
 
 @media (max-width: 768px) {
@@ -945,7 +960,6 @@ body {
     animation: slideDown 0.4s ease-out;
   }
 
-  /* Hero fix: different image for mobile */
   .hero::before {
     top: -15px;
     left: -15px;
@@ -985,18 +999,11 @@ body {
   }
 
   .swiper-slide {
-    width: 350px;
-    height: 350px;
+    width: 300px;
+    height: 380px;
   }
 
   #leaflet-map {
     height: 280px;
   }
-}
-
-.goog-te-banner-frame,
-.goog-te-menu-frame,
-#google_translate_element,
-.skiptranslate {
-  display: none !important;
 }
