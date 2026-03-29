@@ -196,12 +196,12 @@
             </div>
 
             <div class="form-group">
-              <label class="form-label">Contact Information</label>
+              <label class="form-label">Email Address</label>
               <input
-                type="text"
+                type="email"
                 name="contact"
                 class="input-field"
-                placeholder="Email or Phone Number"
+                placeholder="your@email.com"
                 required
               />
             </div>
@@ -1182,31 +1182,49 @@
         e.preventDefault();
         const btn = document.getElementById("submitBtn");
         const formData = new FormData(rsvpForm);
-        const nameToCheck = formData.get("fullName").trim();
+        const nameToCheck = formData.get("fullName").trim().toLowerCase();
+        const emailToCheck = formData.get("contact").trim().toLowerCase();
 
         btn.disabled = true;
-        btn.innerHTML = "Checking name...";
+        btn.innerHTML = "Checking...";
         btn.style.opacity = "0.7";
 
         try {
           const response = await fetch(scriptURL);
           const data = await response.json();
 
+          // Check duplicate name
           const nameExists = data.some(
             (entry) =>
               entry.fullName &&
-              entry.fullName.toString().toLowerCase() ===
-                nameToCheck.toLowerCase(),
+              entry.fullName.toString().toLowerCase() === nameToCheck,
           );
 
           if (nameExists) {
             document.getElementById("alertMessage").innerHTML =
               "It looks like <strong>" +
-              nameToCheck +
+              formData.get("fullName").trim() +
               "</strong> is already listed in our RSVP list. <br><br>If you need to update your details, please reach out to us directly!";
-
             document.getElementById("customAlert").style.display = "flex";
+            btn.disabled = false;
+            btn.innerHTML = "Send My Response";
+            btn.style.opacity = "1";
+            return;
+          }
 
+          // Check duplicate email
+          const emailExists = data.some(
+            (entry) =>
+              entry.contact &&
+              entry.contact.toString().toLowerCase() === emailToCheck,
+          );
+
+          if (emailExists) {
+            document.getElementById("alertMessage").innerHTML =
+              "The email address <strong>" +
+              formData.get("contact").trim() +
+              "</strong> has already been used to RSVP. <br><br>If you need to make changes, please reach out to us directly!";
+            document.getElementById("customAlert").style.display = "flex";
             btn.disabled = false;
             btn.innerHTML = "Send My Response";
             btn.style.opacity = "1";
